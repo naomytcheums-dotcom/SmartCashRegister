@@ -1,8 +1,15 @@
+
 # 🛒 SmartCashRegister
 
 A smart mobile checkout app built with **React Native (Expo)**.
 Scan a barcode, recognize the product — even if it was never added to
 the catalog before — check out, print a receipt, track sales.
+
+## 📱 Try it now
+
+Scan this with the **Expo Go** app (Android/iOS) — no build required:
+
+👉 **[expo.dev/accounts/naotest/projects/smart-cash-register](https://expo.dev/accounts/naotest/projects/smart-cash-register)**
 
 ## ✨ Features
 
@@ -25,26 +32,25 @@ the catalog before — check out, print a receipt, track sales.
 
 ## 🏗️ Architecture
 
-```
-App.js                    → entry point: DB init, providers, navigation
-src/database/db.js        → SQLite layer (schema, queries, demo seed)
+App.js → entry point: DB init, providers, navigation
+src/database/db.js → SQLite layer (schema, queries, demo seed)
 src/context/
-  CartContext.js            → global cart state (Context API + hooks)
-  StoreContext.js            → currently selected store (multi-store support)
-src/i18n/                 → translations (EN/FR) + language context
-src/navigation/            → navigation stack (React Navigation)
-src/screens/                → one file per screen (Home, Scan, Cart, Ticket, AddProduct)
+CartContext.js → global cart state (Context API + hooks)
+StoreContext.js → currently selected store (multi-store support)
+src/i18n/ → translations (EN/FR) + language context
+src/navigation/ → navigation stack (React Navigation)
+src/screens/ → one file per screen (Home, Scan, Cart, Ticket, AddProduct)
 src/utils/
-  cartMath.js                → PURE cart calculations (subtotal, discount, total) — tested
-  loyalty.js                  → loyalty points calculation — tested
-  margin.js                    → product margin calculation — tested
-  format.js / formatDate.js   → reliable currency/date formatting, no Intl dependency
-  externalLookup.js            → calls the Open Food Facts API
-  terminalReports.js           → dashboard/history printed to the dev terminal
-  exportCsv.js                 → sales CSV generation + sharing
-  sound.js                     → plays the scan beep
-__tests__/                  → Jest unit tests (pure functions)
-```
+cartMath.js → PURE cart calculations (subtotal, discount, total) — tested
+loyalty.js → loyalty points calculation — tested
+margin.js → product margin calculation — tested
+format.js / formatDate.js → reliable currency/date formatting, no Intl dependency
+externalLookup.js → calls the Open Food Facts API
+terminalReports.js → dashboard/history printed to the dev terminal
+exportCsv.js → sales CSV generation + sharing
+sound.js → plays the scan beep
+tests/ → Jest unit tests (pure functions)
+
 
 ### Technical choices and why
 
@@ -75,7 +81,7 @@ loyalty points, margins, formatting):
 npm test
 ```
 
-## 🚀 Getting started
+## 🚀 Getting started (running from source)
 
 ```bash
 npm install
@@ -120,3 +126,10 @@ text on a GitHub page)*
 
 React Native · Expo (SDK 54) · SQLite (expo-sqlite) · React Navigation ·
 Jest · Open Food Facts API
+
+Une fois collé et enregistré, pousse sur GitHub :
+
+bash
+git add .
+git commit -m "Add Expo Go link to README"
+git push
