@@ -1,6 +1,6 @@
 /**
- * Logique de calcul du panier, extraite du composant React pour être
- * testable indépendamment de l'UI (aucune dépendance à React Native).
+ * Cart calculation logic, extracted from the React component so it's
+ * testable independently of the UI (no React Native dependency).
  */
 
 export function computeSubtotal(items) {

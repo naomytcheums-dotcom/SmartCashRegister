@@ -6,7 +6,7 @@ const CartContext = createContext(null);
 export function CartProvider({ children }) {
   // items: [{ id, barcode, name, price, stock, quantity, image, description, weight }]
   const [items, setItems] = useState([]);
-  // Remise : { type: 'percent' | 'amount', value: number }
+  // Discount: { type: 'percent' | 'amount', value: number }
   const [discount, setDiscount] = useState({ type: 'percent', value: 0 });
 
   const addItem = (product) => {
@@ -64,6 +64,6 @@ export function CartProvider({ children }) {
 
 export function useCart() {
   const ctx = useContext(CartContext);
-  if (!ctx) throw new Error('useCart doit être utilisé à l\'intérieur de CartProvider');
+  if (!ctx) throw new Error('useCart must be used within CartProvider');
   return ctx;
 }

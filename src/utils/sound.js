@@ -3,8 +3,8 @@ import { Audio } from 'expo-av';
 let cachedSound = null;
 
 /**
- * Joue le bip de scan (fichier audio local généré une fois, pas de
- * dépendance internet — fonctionne toujours, même hors ligne).
+ * Plays the scan beep (a locally generated audio file, no internet
+ * dependency — always works, even offline).
  */
 export async function playBeep() {
   try {
@@ -14,7 +14,7 @@ export async function playBeep() {
     }
     await cachedSound.replayAsync();
   } catch (e) {
-    // Le son n'est qu'un bonus — on ne bloque jamais le scan si ça échoue.
-    console.log('Son indisponible :', e.message);
+    // The sound is just a bonus — never block the scan if it fails.
+    console.log('Sound unavailable:', e.message);
   }
 }

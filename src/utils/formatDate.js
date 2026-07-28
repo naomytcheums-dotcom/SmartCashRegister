@@ -1,12 +1,12 @@
 const MONTHS = [
-  'janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin',
-  'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.',
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ];
 
 /**
- * Formatage de date manuel, pour la même raison que formatFCFA() :
- * ne pas dépendre de toLocaleString() dont le comportement peut varier
- * selon le moteur JS (Hermes) du téléphone.
+ * Manual date formatting, for the same reason as formatFCFA():
+ * don't rely on toLocaleString(), whose behavior can vary depending on
+ * the phone's JS engine (Hermes).
  */
 export function formatDateTime(date) {
   const d = new Date(date);

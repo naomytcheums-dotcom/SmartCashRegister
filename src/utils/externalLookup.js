@@ -1,14 +1,13 @@
 /**
- * Recherche un produit dans Open Food Facts — une base de données
- * mondiale, gratuite et ouverte, qui référence des millions de vrais
- * produits du quotidien par code-barres (sans clé API nécessaire).
+ * Looks up a product on Open Food Facts — a free, open, worldwide
+ * database that references millions of real everyday products by
+ * barcode (no API key required).
  *
- * C'est ce qui permet à l'app de reconnaître QUASIMENT N'IMPORTE QUEL
- * produit du commerce, même s'il n'a jamais été ajouté manuellement à
- * ton propre catalogue local.
+ * This is what lets the app recognize ALMOST ANY commercial product,
+ * even if it was never manually added to your own local catalog.
  *
- * Le prix et le stock restent toujours saisis par toi ensuite (aucune
- * base publique ne connaît le prix pratiqué dans TON magasin).
+ * Price and stock are always entered by you afterwards (no public
+ * database knows the price you charge in YOUR store).
  */
 export async function lookupProductExternally(barcode) {
   try {
@@ -29,8 +28,8 @@ export async function lookupProductExternally(barcode) {
       image: p.image_front_url || p.image_url || '',
     };
   } catch (e) {
-    // Pas de connexion, ou API indisponible : on retombe simplement sur
-    // le flux "produit inconnu" classique, sans planter le scan.
+    // No connection, or the API is unavailable: simply fall back to
+    // the classic "unknown product" flow, without crashing the scan.
     return null;
   }
 }

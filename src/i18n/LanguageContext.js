@@ -4,8 +4,8 @@ import { translations } from './translations';
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  // Anglais par défaut, comme demandé — le français est en second plan,
-  // activable via le bouton de langue sur l'écran d'accueil.
+  // English by default, as requested — French is secondary,
+  // toggleable via the language button on the home screen.
   const [language, setLanguage] = useState('en');
 
   const t = (key) => {

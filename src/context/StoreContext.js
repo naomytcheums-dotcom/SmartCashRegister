@@ -4,9 +4,9 @@ import { getAllStores } from '../database/db';
 const StoreContext = createContext(null);
 
 /**
- * Gère le magasin actuellement sélectionné (multi-boutique).
- * Toutes les données (produits, stock, ventes) sont filtrées par magasin
- * côté base de données — voir src/database/db.js.
+ * Manages the currently selected store (multi-store support).
+ * All data (products, stock, sales) is filtered by store on the
+ * database side — see src/database/db.js.
  */
 export function StoreProvider({ children }) {
   const [stores, setStores] = useState([]);
@@ -32,6 +32,6 @@ export function StoreProvider({ children }) {
 
 export function useStore() {
   const ctx = useContext(StoreContext);
-  if (!ctx) throw new Error('useStore doit être utilisé à l\'intérieur de StoreProvider');
+  if (!ctx) throw new Error('useStore must be used within StoreProvider');
   return ctx;
 }

@@ -1,6 +1,6 @@
 /**
- * Calcule la marge (bénéfice) et le taux de marge d'un produit.
- * Fonction pure, testable indépendamment de l'UI/DB.
+ * Computes the margin (profit) and margin rate for a product.
+ * Pure function, testable independently of the UI/DB.
  */
 export function computeMargin(price, costPrice) {
   const cost = costPrice || 0;

@@ -157,7 +157,7 @@ export default function AddProductScreen({ navigation, route }) {
           style={styles.input}
           value={name}
           onChangeText={setName}
-          placeholder="Ex: Eau minérale 1.5L"
+          placeholder="Ex: Mineral water 1.5L"
         />
 
         <Text style={styles.label}>{t('addProductDescription')}</Text>

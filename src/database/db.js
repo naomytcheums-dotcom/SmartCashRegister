@@ -4,12 +4,13 @@ import { computePointsEarned } from '../utils/loyalty';
 let db;
 
 /**
- * Ouvre (ou crée) la base SQLite locale et crée les tables si besoin :
- * - stores : magasins (multi-boutique)
- * - products : catalogue (avec description, poids, image, prix d'achat) — par magasin
- * - suppliers : fournisseurs (nom, téléphone)
- * - customers : programme de fidélité (téléphone → points cumulés)
- * - sales : historique des ventes — par magasin
+ * Opens (or creates) the local SQLite database and creates the tables
+ * if needed:
+ * - stores: shops (multi-store support)
+ * - products: catalog (with description, weight, image, cost price) — per store
+ * - suppliers: suppliers (name, phone)
+ * - customers: loyalty program (phone -> accumulated points)
+ * - sales: sales history — per store
  */
 export async function initDatabase() {
   db = await SQLite.openDatabaseAsync('smartcash_v4.db');
@@ -76,7 +77,7 @@ export async function initDatabase() {
 }
 
 async function seedStores() {
-  // Deux magasins de démo pour illustrer le multi-boutique.
+  // Two demo stores to illustrate multi-store support.
   await db.runAsync('INSERT INTO stores (name) VALUES (?)', ['Boutique Douala Centre']);
   await db.runAsync('INSERT INTO stores (name) VALUES (?)', ['Boutique Akwa']);
 }
@@ -92,7 +93,7 @@ async function seedProducts() {
     {
       barcode: '3017620422003',
       name: 'Nutella 400g',
-      description: 'Pâte à tartiner chocolat-noisette',
+      description: 'Chocolate hazelnut spread',
       weight: '400 g',
       image: 'https://placehold.co/300x300/8B4513/ffffff?text=Nutella',
       price: 2500,
@@ -102,7 +103,7 @@ async function seedProducts() {
     {
       barcode: '5449000000996',
       name: 'Coca-Cola 33cl',
-      description: 'Boisson gazeuse rafraîchissante',
+      description: 'Refreshing carbonated drink',
       weight: '33 cl',
       image: 'https://placehold.co/300x300/D2001F/ffffff?text=Coca-Cola',
       price: 500,
@@ -112,7 +113,7 @@ async function seedProducts() {
     {
       barcode: '7622210449283',
       name: 'Biscuits Oreo',
-      description: 'Biscuits sablés fourrés à la crème vanille',
+      description: 'Sandwich cookies with vanilla cream',
       weight: '154 g',
       image: 'https://placehold.co/300x300/1a1a1a/ffffff?text=Oreo',
       price: 800,
@@ -132,7 +133,7 @@ async function seedProducts() {
     {
       barcode: '6111242112395',
       name: 'Pain de mie',
-      description: 'Pain de mie tranché, format familial',
+      description: 'Sliced sandwich bread, family size',
       weight: '500 g',
       image: 'https://placehold.co/300x300/e8b04b/ffffff?text=Pain',
       price: 1000,
@@ -142,9 +143,9 @@ async function seedProducts() {
   ];
 
   for (const p of sample) {
-    // store_id = 1 : les produits de démo appartiennent au premier magasin
-    // ("Boutique Douala Centre"). Le second magasin démarre avec un
-    // catalogue vide, à remplir via "Ajouter un produit".
+    // store_id = 1: demo products belong to the first store
+    // ("Boutique Douala Centre"). The second store starts with an
+    // empty catalog, to be filled in via "Add product".
     await db.runAsync(
       'INSERT INTO products (store_id, barcode, name, description, weight, image, price, cost_price, supplier_id, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [1, p.barcode, p.name, p.description, p.weight, p.image, p.price, p.costPrice, supplierId, p.stock]
@@ -152,22 +153,22 @@ async function seedProducts() {
   }
 }
 
-// ---------- Magasins ----------
+// ---------- Stores ----------
 
 export async function getAllStores() {
   return await db.getAllAsync('SELECT * FROM stores ORDER BY id');
 }
 
-// ---------- Fournisseurs ----------
+// ---------- Suppliers ----------
 
 export async function getAllSuppliers() {
   return await db.getAllAsync('SELECT * FROM suppliers ORDER BY name');
 }
 
 /**
- * Retrouve un fournisseur par nom, ou le crée s'il n'existe pas encore.
- * Permet de saisir un fournisseur en texte libre depuis "Ajouter un
- * produit" sans avoir besoin d'un écran de gestion séparé.
+ * Finds a supplier by name, or creates it if it doesn't exist yet.
+ * Lets a supplier be entered as free text from "Add product" without
+ * needing a separate management screen.
  */
 export async function getOrCreateSupplier(name) {
   if (!name || !name.trim()) return null;
@@ -178,7 +179,7 @@ export async function getOrCreateSupplier(name) {
   return result.lastInsertRowId;
 }
 
-// ---------- Produits ----------
+// ---------- Products ----------
 
 export async function getProductByBarcode(barcode, storeId) {
   return await db.getFirstAsync(
@@ -231,9 +232,9 @@ export async function addProduct({
   );
 }
 
-// ---------- Fidélité ----------
-// Le calcul des points (computePointsEarned) est dans src/utils/loyalty.js,
-// pour rester testable indépendamment de la base de données.
+// ---------- Loyalty ----------
+// Points calculation (computePointsEarned) lives in src/utils/loyalty.js,
+// so it stays testable independently of the database.
 
 export async function addPointsToCustomer(phone, points) {
   if (!phone) return null;
@@ -249,7 +250,7 @@ export async function addPointsToCustomer(phone, points) {
   return await db.getFirstAsync('SELECT * FROM customers WHERE phone = ?', [phone]);
 }
 
-// ---------- Ventes (historique + stats + export) ----------
+// ---------- Sales (history + stats + export) ----------
 
 export async function recordSale({
   storeId,

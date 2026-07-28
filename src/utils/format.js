@@ -1,9 +1,9 @@
 /**
- * Formatte un montant en FCFA de façon fiable, sans dépendre de
- * toLocaleString() (dont le comportement peut varier selon le moteur JS
- * du téléphone — Hermes n'a pas toujours le support Intl complet, ce qui
- * peut donner un formatage inattendu). Ici on fait le séparateur de
- * milliers nous-mêmes, donc le résultat est toujours prévisible.
+ * Reliably formats an amount in FCFA, without relying on
+ * toLocaleString() (whose behavior can vary depending on the phone's
+ * JS engine — Hermes doesn't always have full Intl support, which can
+ * produce unexpected formatting). The thousands separator is handled
+ * manually here, so the result is always predictable.
  */
 export function formatFCFA(amount) {
   const rounded = Math.round(amount || 0);
