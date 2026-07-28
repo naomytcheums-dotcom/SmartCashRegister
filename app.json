@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "SmartCashRegister",
+    "slug": "smart-cash-register",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "SmartCashRegister a besoin d'accéder à la caméra pour scanner les codes-barres des produits."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "SmartCashRegister a besoin d'accéder à tes photos pour ajouter une image de produit.",
+          "cameraPermission": "SmartCashRegister a besoin d'accéder à la caméra pour photographier un produit."
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.smartcashregister.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.smartcashregister.app"
+    }
+  }
+}
